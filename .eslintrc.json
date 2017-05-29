@@ -1,0 +1,22 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": "airbnb-base",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "no-tabs": 0,
+        "indent": ["error", "tab"],
+        "no-plusplus": 0,
+        "semi-spacing": 0,
+        "space-infix-ops": 0,
+        "space-before-blocks": 0,
+        "keyword-spacing": 0,
+        "object-curly-spacing": 0,
+        "no-underscore-dangle": 0,
+        "no-use-before-define": 0
+    }
+}
