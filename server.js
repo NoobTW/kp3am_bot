@@ -23,7 +23,7 @@ mc.connect('mongodb://127.0.0.1/tg_log', (err, database) => {
 	}
 });
 
-bot.onText(/^[pP][iI][nN][gG]$/, (msg) => {
+bot.onText(/^ping$/i, (msg) => {
 	bot.sendMessage(msg.chat.id, 'pong');
 });
 
@@ -31,12 +31,12 @@ bot.onText(/^(\\(.*)\/)$/, (msg) => {
 	bot.sendMessage(msg.chat.id, msg.text, {reply_to_message_id: msg.message_id});
 });
 
-bot.onText(/(幫|[bB][aA][nN][gG]\s)[qQ][qQ]/, (msg) => {
+bot.onText(/(幫|bang\s)QQ/i, (msg) => {
 	bot.sendMessage(msg.chat.id, '幫QQ', {reply_to_message_id: msg.message_id});
 });
 
-bot.onText(/^[gG][oO][oO][gG][lL][eE]\s(.*)/, (msg) => {
-	const query = msg.text.replace(/^[gG][oO][gG][lL][eE]/, '').split(' ');
+bot.onText(/^google\s.+/i, (msg) => {
+	const query = msg.text.replace(/^google/i, '').split(' ');
 	Google(query)
 	.then((result) => {
 		bot.sendMessage(msg.chat.id, `${result.title}
@@ -47,8 +47,8 @@ ${result.link}`, {reply_to_message_id: msg.message_id});
 	});
 });
 
-bot.onText(/^([yY][oO][uU][tT][uU][bB][eE]|我想聽)(.*)/, (msg) => {
-	const query = msg.text.replace('//^([yY][oO][uU][tT][uU][bB][eE]|我想聽)/', '').split(' ');
+bot.onText(/^(youtube|我想聽).+/, (msg) => {
+	const query = msg.text.replace(/^(youtube|我想聽)/i, '').split(' ');
 	YouTube(query)
 	.then((result) => {
 		bot.sendMessage(msg.chat.id, result, {reply_to_message_id: msg.message_id});
@@ -58,8 +58,8 @@ bot.onText(/^([yY][oO][uU][tT][uU][bB][eE]|我想聽)(.*)/, (msg) => {
 	});
 });
 
-bot.onText(/^([wW][iI][kK][iI]|什麼是)/, (msg) => {
-	const query = msg.text.replace(/^([wW][iI][kK][iI]|什麼是)/, '').split(' ');
+bot.onText(/^(wiki\s|什麼是).+/i, (msg) => {
+	const query = msg.text.replace(/^(wiki\s|什麼是)/i, '').split(' ');
 	Wikipedia(query)
 	.then((result) => {
 		if(result.src === 'Google'){
