@@ -47,8 +47,8 @@ ${result.link}`, {reply_to_message_id: msg.message_id});
 	});
 });
 
-bot.onText(/^(youtube|我想聽).+/, (msg) => {
-	const query = msg.text.replace(/^(youtube|我想聽)/i, '').split(' ');
+bot.onText(/^(youtube\s|我想聽).+/, (msg) => {
+	const query = msg.text.replace(/^(youtube\s|我想聽)/i, '').split(' ');
 	YouTube(query)
 	.then((result) => {
 		bot.sendMessage(msg.chat.id, result, {reply_to_message_id: msg.message_id});
