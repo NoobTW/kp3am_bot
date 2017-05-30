@@ -80,10 +80,10 @@ bot.onText(/^(err(or)?(:|\s)+)?utg$/i, (msg) => {
 
 bot.onText(/https?:\/\/m.facebook.com(.*)/i, (msg) => {
 	const regexMobilePost = /https?:\/\/m.facebook.com.*story_fbid=([0-9]*)&id=([0-9]*)/;
-	if(regexMobilePost.test(msg)){
-		bot.sendMessage(msg.chat.id, msg.replace(regexMobilePost, 'https://www.facebook.com/$2/posts/$1'));
+	if(regexMobilePost.test(msg.text)){
+		bot.sendMessage(msg.chat.id, msg.text.replace(regexMobilePost, 'https://www.facebook.com/$2/posts/$1'));
 	}else{
-		bot.sendMessage(msg.chat.id, msg.replace(/https?:\/\/m.facebook.com(.*)/, 'https://www.facebook.com$1'));
+		bot.sendMessage(msg.chat.id, msg.text.replace(/https?:\/\/m.facebook.com(.*)/, 'https://www.facebook.com$1'));
 	}
 });
 
