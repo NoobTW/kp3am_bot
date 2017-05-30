@@ -74,6 +74,10 @@ ${result.link}`, {reply_to_message_id: msg.message_id});
 	});
 });
 
+bot.onText(/^(err(or)?(:|\s)+)?utg$/i, (msg) => {
+	bot.sendMessage(msg.chat.id, 'ERROR: User too gay.');
+});
+
 process.on('SIGINT', () => {
 	/* eslint-disable  no-console */
 	console.log('Mongodb disconnected on app termination');
