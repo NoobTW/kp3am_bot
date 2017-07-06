@@ -38,40 +38,40 @@ bot.onText(/(幫|bang\s)QQ/i, (msg) => {
 bot.onText(/^google\s.+/i, (msg) => {
 	const query = msg.text.replace(/^google/i, '').split(' ');
 	Google(query)
-	.then((result) => {
-		bot.sendMessage(msg.chat.id, `${result.title}
-${result.link}`, {reply_to_message_id: msg.message_id});
-	})
-	.catch(() => {
-		bot.sendMessage(msg.chat.id, '無法載入搜尋結果');
-	});
+		.then((result) => {
+			bot.sendMessage(msg.chat.id, `${result.title}
+	${result.link}`, {reply_to_message_id: msg.message_id});
+		})
+		.catch(() => {
+			bot.sendMessage(msg.chat.id, '無法載入搜尋結果');
+		});
 });
 
 bot.onText(/^(youtube\s|我想聽).+/, (msg) => {
 	const query = msg.text.replace(/^(youtube\s|我想聽)/i, '').split(' ');
 	YouTube(query)
-	.then((result) => {
-		bot.sendMessage(msg.chat.id, result, {reply_to_message_id: msg.message_id});
-	})
-	.catch(() => {
-		bot.sendMessage(msg.chat.id, '無法載入搜尋結果');
-	});
+		.then((result) => {
+			bot.sendMessage(msg.chat.id, result, {reply_to_message_id: msg.message_id});
+		})
+		.catch(() => {
+			bot.sendMessage(msg.chat.id, '無法載入搜尋結果');
+		});
 });
 
 bot.onText(/^(wiki\s|什麼是).+/i, (msg) => {
 	const query = msg.text.replace(/^(wiki\s|什麼是)/i, '').split(' ');
 	Wikipedia(query)
-	.then((result) => {
-		if(result.src === 'Google'){
-			bot.sendMessage(msg.chat.id, `${result.title}
-${result.link}`, {reply_to_message_id: msg.message_id});
-		}else{
-			bot.sendMessage(msg.chat.id, result, {reply_to_message_id: msg.message_id}) ;
-		}
-	})
-	.catch(() => {
-		bot.sendMessage(msg.chat.id, '無法載入 Wikipedia 資料');
-	});
+		.then((result) => {
+			if(result.src === 'Google'){
+				bot.sendMessage(msg.chat.id, `${result.title}
+	${result.link}`, {reply_to_message_id: msg.message_id});
+			}else{
+				bot.sendMessage(msg.chat.id, result, {reply_to_message_id: msg.message_id}) ;
+			}
+		})
+		.catch(() => {
+			bot.sendMessage(msg.chat.id, '無法載入 Wikipedia 資料');
+		});
 });
 
 bot.onText(/^(err(or)?(:|\s)+)?utg$/i, (msg) => {
