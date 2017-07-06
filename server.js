@@ -87,6 +87,10 @@ bot.onText(/https?:\/\/m.facebook.com(.*)/i, (msg) => {
 	}
 });
 
+bot.onText(/^\/randomColor/i, (msg) => {
+	bot.sendMessage(msg.chat.id, `#${Math.floor(Math.random()*16777215).toString(16)}`);
+});
+
 process.on('SIGINT', () => {
 	/* eslint-disable  no-console */
 	console.log('Mongodb disconnected on app termination');
