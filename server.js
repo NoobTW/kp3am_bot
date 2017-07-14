@@ -92,7 +92,7 @@ bot.onText(/^\/randomColor/i, (msg) => {
 });
 
 bot.onText(/^suicide$/i, (msg) => {
-	bot.sendMessage(msg.chat.id, '自殺不能解決問題，但可以解決掉你自己。\n        — kp3am');
+	bot.sendMessage(msg.chat.id, '自殺不能解決問題，但可以解決掉你自己。\n        — Noob\'s Classmate');
 });
 
 process.on('SIGINT', () => {
