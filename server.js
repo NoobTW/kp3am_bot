@@ -104,7 +104,7 @@ bot.onText(/^\/randomColor/i, (msg) => {
 	bot.sendMessage(msg.chat.id, `#${Math.floor(Math.random()*16777215).toString(16)}`);
 });
 
-bot.onText(/^suicide$/i, (msg) => {
+bot.onText(/^suicide$|自殺/i, (msg) => {
 	bot.sendMessage(msg.chat.id, '自殺不能解決問題，但可以解決掉你自己。\n        — Noob\'s Classmate');
 });
 
