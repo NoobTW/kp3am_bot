@@ -47,19 +47,6 @@ bot.onText(/^google\s.+/i, (msg) => {
 		});
 });
 
-bot.onText(/^google\[\d+\]\s.+/i, (msg) => {
-	const offset = msg.text.match(/^google\[(\d+)\]\s.+/i)[1]
-	const query = msg.text.replace(/^google/i, '').split(' ');
-	Google(query, offset)
-		.then((result) => {
-			bot.sendMessage(msg.chat.id, `${result.title}
-	${result.link}`, {reply_to_message_id: msg.message_id});
-		})
-		.catch(() => {
-			bot.sendMessage(msg.chat.id, '無法載入搜尋結果');
-		});
-});
-
 bot.onText(/^(youtube\s|我想聽).+/, (msg) => {
 	const query = msg.text.replace(/^(youtube\s|我想聽)/i, '').split(' ');
 	YouTube(query)

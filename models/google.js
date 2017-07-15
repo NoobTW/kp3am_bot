@@ -11,12 +11,7 @@ function getParameterByName(name, url) {
 	return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function _letsGoogle(query, offset){
-	let start = 0;
-	if(offset>=10){
-		start = Math.floor(offset/10)*10;
-		offset -= start;
-	}
+function Google(query){
 	return new Promise((resolve, reject) => {
 		let keyword = '';
 		Object.keys(query).forEach((i) => {
@@ -28,17 +23,14 @@ function _letsGoogle(query, offset){
 			headers: {
 				'User-Agent': ua.random(),
 			},
-			qs: {
-				q: keyword,
-				start: start
-			},
+			qs: {q: keyword},
 		}, (error, r, b) => {
 			if(error || !b){
 				reject();
 			}else{
 				const jQuery = cheerio.load(b, {decodeEntities: false});
-				const title = jQuery(jQuery('h3.r')[offset]).text().replace(/&#39;/g, '\'');
-				let link = jQuery(jQuery(jQuery('h3.r')[offset]).find('a')).attr('href');
+				const title = jQuery(jQuery('h3.r')[0]).text().replace(/&#39;/g, '\'');
+				let link = jQuery(jQuery(jQuery('h3.r')[0]).find('a')).attr('href');
 				link = getParameterByName('url', link) || link;
 				if(typeof link !== 'string'){
 					reject();
@@ -59,14 +51,6 @@ function _letsGoogle(query, offset){
 			}
 		});
 	});
-}
-
-function Google(query, offset){
-	if(typeof offset === 'number'){
-		_letsGoogle(query, offset);
-	}else{
-		_letsGoogle(query, 0);
-	}
 }
 
 module.exports = Google;
