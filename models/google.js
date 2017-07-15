@@ -11,7 +11,7 @@ function getParameterByName(name, url) {
 	return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function Google(query){
+function Google(query, offset){
 	return new Promise((resolve, reject) => {
 		let keyword = '';
 		Object.keys(query).forEach((i) => {
@@ -28,9 +28,10 @@ function Google(query){
 			if(error || !b){
 				reject();
 			}else{
+				const Offset = (typeof offset === 'number') ? offset : 0;
 				const jQuery = cheerio.load(b, {decodeEntities: false});
-				const title = jQuery(jQuery('h3.r')[0]).text().replace(/&#39;/g, '\'');
-				let link = jQuery(jQuery(jQuery('h3.r')[0]).find('a')).attr('href');
+				const title = jQuery(jQuery('h3.r')[Offset]).text().replace(/&#39;/g, '\'');
+				let link = jQuery(jQuery(jQuery('h3.r')[Offset]).find('a')).attr('href');
 				link = getParameterByName('url', link) || link;
 				if(typeof link !== 'string'){
 					reject();
