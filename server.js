@@ -47,9 +47,15 @@ bot.onText(/^google\s.+/i, (msg) => {
 		});
 });
 
-bot.onText(/^google\[\d+\]\s.+/i, (msg) => {
-	const offset = msg.text.match(/^google\[(\d+)\]\s.+/i)[1]
-	const query = msg.text.replace(/^google/i, '').split(' ');
+bot.onText(/^google(?:\[(\d)\])?\s(.+)/i, (msg, match) => {
+	let query, offset = 1;
+	if (match.length === 3) {
+		// if offset found
+		offset = match[1];
+		query = match[2].split(' ');
+	} else {
+		query = match[1].split(' ');
+	}
 	Google(query, offset)
 		.then((result) => {
 			bot.sendMessage(msg.chat.id, `${result.title}
