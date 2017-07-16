@@ -10,7 +10,6 @@
   "author": "NoobTW",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^2.0.0-alpha.2",
     "cheerio": "^0.22.0",
     "mongodb": "^2.2.27",
     "mysql": "^2.13.0",
