@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const mongo = require('mongodb');
+const { createCanvas } = require('canvas');
 const config = require('./config');
 const Google = require('./models/google');
 const Wikipedia = require('./models/wiki');
@@ -95,7 +96,17 @@ bot.onText(/https?:\/\/m.facebook.com(.*)/i, (msg) => {
 });
 
 bot.onText(/^\/randomColor/i, (msg) => {
-	bot.sendMessage(msg.chat.id, `#${Math.floor(Math.random()*16777215).toString(16)}`);
+	const color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+	const canvas = createCanvas(150, 150);
+	const ctx = canvas.getContext('2d');
+
+	ctx.fillStyle = color;
+	ctx.fillRect(0, 0, 150, 150);
+
+	bot.sendPhoto(msg.chat.id, canvas.toBuffer(), {
+		caption: color,
+		reply_to_message_id: msg.message_id,
+	});
 });
 
 bot.onText(/^suicide$|自殺/i, (msg) => {
