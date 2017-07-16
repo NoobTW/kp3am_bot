@@ -14,6 +14,7 @@ function getParameterByName(name, url) {
 function Google(query, offset){
 	return new Promise((resolve, reject) => {
 		let keyword = '';
+		const start = (typeof offset === 'number') ? Math.floor(offset/10)*10 : 0;
 		Object.keys(query).forEach((i) => {
 			keyword += `${query[i]} `;
 		});
@@ -23,15 +24,18 @@ function Google(query, offset){
 			headers: {
 				'User-Agent': ua.random(),
 			},
-			qs: {q: keyword},
+			qs: {
+				q: keyword,
+				start: start
+			},
 		}, (error, r, b) => {
 			if(error || !b){
 				reject();
 			}else{
-				const Offset = (typeof offset === 'number') ? offset : 0;
+				const _offset = (typeof offset === 'number') ? offset - start : 0;
 				const jQuery = cheerio.load(b, {decodeEntities: false});
-				const title = jQuery(jQuery('h3.r')[Offset]).text().replace(/&#39;/g, '\'');
-				let link = jQuery(jQuery(jQuery('h3.r')[Offset]).find('a')).attr('href');
+				const title = jQuery(jQuery('h3.r')[_offset]).text().replace(/&#39;/g, '\'');
+				let link = jQuery(jQuery(jQuery('h3.r')[_offset]).find('a')).attr('href');
 				link = getParameterByName('url', link) || link;
 				if(typeof link !== 'string'){
 					reject();
