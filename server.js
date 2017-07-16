@@ -35,21 +35,15 @@ bot.onText(/(幫|bang\s)QQ/i, (msg) => {
 	bot.sendMessage(msg.chat.id, '幫QQ', {reply_to_message_id: msg.message_id});
 });
 
-bot.onText(/^google\s.+/i, (msg) => {
-	const query = msg.text.replace(/^google/i, '').split(' ');
-	Google(query)
-		.then((result) => {
-			bot.sendMessage(msg.chat.id, `${result.title}
-	${result.link}`, {reply_to_message_id: msg.message_id});
-		})
-		.catch(() => {
-			bot.sendMessage(msg.chat.id, '無法載入搜尋結果');
-		});
-});
-
-bot.onText(/^google\[\d+\]\s.+/i, (msg) => {
-	const offset = msg.text.match(/^google\[(\d+)\]\s.+/i)[1]
-	const query = msg.text.replace(/^google/i, '').split(' ');
+bot.onText(/^google(?:\[(\d)\])?\s(.+)/i, (msg, match) => {
+	let query, offset = 1;
+	if (match.length === 3) {
+		// if offset found
+		offset = match[1];
+		query = match[2].split(' ');
+	} else {
+		query = match[1].split(' ');
+	}
 	Google(query, offset)
 		.then((result) => {
 			bot.sendMessage(msg.chat.id, `${result.title}
