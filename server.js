@@ -36,7 +36,7 @@ bot.onText(/(幫|bang\s)QQ/i, (msg) => {
 	bot.sendMessage(msg.chat.id, '幫QQ', {reply_to_message_id: msg.message_id});
 });
 
-bot.onText(/^google(?:\[(\d)\])?\s(.+)/i, (msg, match) => {
+bot.onText(/^google(?:\[(\d+)\])?\s(.+)/i, (msg, match) => {
 	let query, offset = 1;
 	if (match.length === 3) {
 		// if offset found
