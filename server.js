@@ -40,7 +40,7 @@ bot.onText(/^google(?:\[(\d+)\])?\s(.+)/i, (msg, match) => {
 	let query, offset = 1;
 	if (match.length === 3) {
 		// if offset found
-		offset = match[1];
+		offset = Number(match[1]);
 		query = match[2].split(' ');
 	} else {
 		query = match[1].split(' ');
